@@ -1,6 +1,10 @@
 #!/bin/sh
 
+# 环境
 source /jffs/softcenter/scripts/base.sh
+script_dir=/jffs/softcenter/scripts
+init_dir=/jffs/softcenter/init.d
+
 enable=`dbus get socat_enable`
 remarks="Socat_rule"
 
@@ -11,8 +15,8 @@ add_cru(){
     cron_time_hour=`dbus get socat_cron_time_hour`
     
     [ -z "$cron_type" ] && return 0
-    [ "$cron_type" == "min" ] && cru a socat_watch "*/${cron_time_min} * * * * /jffs/softcenter/scripts/socat_start.sh restart"
-    [ "$cron_type" == "hour" ] && cru a socat_watch "00 */${cron_time_hour} * * * /jffs/softcenter/scripts/socat_start.sh restart"
+    [ "$cron_type" == "min" ] && cru a socat_watch "*/${cron_time_min} * * * * ${script_dir}/socat_start.sh restart"
+    [ "$cron_type" == "hour" ] && cru a socat_watch "00 */${cron_time_hour} * * * ${script_dir}/socat_start.sh restart"
 }
 # 使iptables能作备注（打开/关闭端口依赖）
 load_xt_comment(){
@@ -83,7 +87,7 @@ run_service() {
         }
     done
     add_cru
-    [ ! -L "/jffs/softcenter/init.d/N99socat.sh" ] && ln -sf /jffs/softcenter/scripts/socat_start.sh /jffs/softcenter/init.d/N99socat.sh
+    [ ! -L "${init_dir}/N99socat.sh" ] && ln -sf ${script_dir}/socat_start.sh ${init_dir}/N99socat.sh
     
     [ -n "$(cat $tmp_file)" ] || exit
     chmod +x "$tmp_file"
@@ -105,7 +109,7 @@ start|restart)
 	;;
 stop)
 	stop_service
-	rm -f /jffs/softcenter/init.d/N99socat.sh
+	rm -f ${init_dir}/N99socat.sh
 	;;
 start_nat)
 	sleep 1; close_port; sleep 1
