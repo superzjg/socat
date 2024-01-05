@@ -11,10 +11,10 @@ remarks="Socat_rule"
 # 添加定时
 add_cru(){
     cron_type=`dbus get socat_cron_type`
+	[ -z "$cron_type" ] && return 0
+	
     cron_time_min=`dbus get socat_cron_time_min`
     cron_time_hour=`dbus get socat_cron_time_hour`
-    
-    [ -z "$cron_type" ] && return 0
     [ "$cron_type" == "min" ] && cru a socat_watch "*/${cron_time_min} * * * * ${script_dir}/socat_start.sh restart"
     [ "$cron_type" == "hour" ] && cru a socat_watch "00 */${cron_time_hour} * * * ${script_dir}/socat_start.sh restart"
 }

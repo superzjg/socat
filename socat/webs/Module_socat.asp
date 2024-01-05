@@ -403,7 +403,7 @@ function update_visibility(){
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th width="20%">定时功能 (留空忽略)</th>
+                                            <th width="20%">定时功能 (留空关闭)</th>
                                             <td>每
                                                 <select id="socat_cron_time_min" name="socat_cron_time_min" style="width:60px;vertical-align: middle;" class="input_option">
                                                     <option value="5">5</option>
@@ -426,7 +426,7 @@ function update_visibility(){
                                                     <option value="24">24</option>
 												</select>
 												<select id="socat_cron_type" name="socat_cron_type" style="width:60px;vertical-align: middle;" class="input_option" onchange="show_hide_element();">
-													<option value=""></option>
+													<option value="">-空-</option>
 													<option value="min">分钟</option>
 													<option value="hour">小时</option>
 												</select>
