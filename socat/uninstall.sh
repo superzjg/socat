@@ -12,7 +12,7 @@ rm -f /jffs/softcenter/scripts/socat_config.sh
 rm -f /jffs/softcenter/scripts/socat_start.sh
 rm -f /jffs/softcenter/scripts/socat_status.sh
 rm -f /jffs/softcenter/webs/Module_socat.asp
-# rm -f /jffs/softcenter/res/icon-socat.png
+rm -f /jffs/softcenter/res/icon-socat.png
 version=${socat_version}
 
 values=`dbus list socat_ | cut -d "=" -f 1`
@@ -20,6 +20,5 @@ for value in $values
 do
 dbus remove $value 
 done
-logger "[软件中心]: socat ${version}已卸载"
 echo_date " socat ${version}已卸载"
 rm -f /jffs/softcenter/scripts/uninstall_socat.sh

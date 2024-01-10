@@ -9,6 +9,7 @@ cd $DIR
 find /jffs/softcenter/init.d/ -name "*socat*"|xargs rm -rf
 cp -rf $DIR/scripts/* /jffs/softcenter/scripts/
 cp -rf $DIR/webs/* /jffs/softcenter/webs/
+cp -rf $DIR/res/* /jffs/softcenter/res/
 cp -f $DIR/uninstall.sh /jffs/softcenter/scripts/uninstall_socat.sh
 
 chmod 755 /jffs/softcenter/scripts/socat_config.sh

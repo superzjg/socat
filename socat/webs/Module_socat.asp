@@ -133,17 +133,21 @@ function save() {
     db_socat["socat_enable"] = E("socat_enable").checked ? '1' : '0';
     
     // post data
-	db_socat["action_script"]="socat_config.sh";
-	db_socat["action_mode"] = "restart";
-	db_socat["current_page"] = "Module_socat.asp";
-	db_socat["next_page"] = "Module_socat.asp";
+	var uid = parseInt(Math.random() * 100000000);
+	var postData = {"id": uid, "method": "socat_config.sh", "params": ["restart"], "fields": db_socat };
 	$.ajax({
-		url: "/applydb.cgi?p=socat",
+		url: "/_api/",
 		cache: false,
 		type: "POST",
-		dataType: "html",
-		data: $.param(db_socat)
+		dataType: "json",
+		data: JSON.stringify(postData),
+		success: function(response) {
+			if (response.result == uid){
+				refreshpage();
+			}
+		}
 	});
+
 	refreshpage(2);
 }
 function menu_hook(title, tab) {
