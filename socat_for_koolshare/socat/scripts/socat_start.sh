@@ -89,7 +89,7 @@ run_service() {
     add_cru
     [ ! -L "${init_dir}/N99socat.sh" ] && ln -sf ${script_dir}/socat_start.sh ${init_dir}/N99socat.sh
     
-    [ -n "$(cat $tmp_file)" ] || exit
+    [ -n "$(cat $tmp_file)" ] || return
     chmod +x "$tmp_file"
 	/bin/sh "$tmp_file" >/dev/null 2>&1
 }
@@ -109,7 +109,7 @@ start|restart)
 	;;
 stop)
 	stop_service
-	rm -f ${init_dir}/N99socat.sh
+	rm -f ${init_dir}/?99socat.sh
 	;;
 start_nat)
 	sleep 1; close_port; sleep 1
