@@ -109,7 +109,7 @@ stop)
 start_nat)
 	sleep 1; close_port; sleep 1
 	if [ -n "$(pidof socat)" ]; then
-        [ -x "/tmp/add_Socat_rule.sh" ] && /bin/sh /tmp/add_Socat_rule.sh >/dev/null 2>&1
+        [ -n "$(cat /tmp/add_Socat_rule.sh)" ] && /bin/sh /tmp/add_Socat_rule.sh >/dev/null 2>&1
 	else
 		[ -n "$(cru l |grep -w 'socat_watch')" ] && cru d socat_watch
 		run_service
